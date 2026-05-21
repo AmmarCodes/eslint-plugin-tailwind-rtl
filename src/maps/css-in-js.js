@@ -1,0 +1,38 @@
+const CSS_IN_JS_PROPERTIES = {
+  marginLeft: "marginInlineStart",
+  marginRight: "marginInlineEnd",
+  paddingLeft: "paddingInlineStart",
+  paddingRight: "paddingInlineEnd",
+  borderLeft: "borderInlineStart",
+  borderRight: "borderInlineEnd",
+  borderLeftColor: "borderInlineStartColor",
+  borderRightColor: "borderInlineEndColor",
+  borderLeftWidth: "borderInlineStartWidth",
+  borderRightWidth: "borderInlineEndWidth",
+  borderLeftStyle: "borderInlineStartStyle",
+  borderRightStyle: "borderInlineEndStyle",
+  left: "insetInlineStart",
+  right: "insetInlineEnd",
+  width: "inlineSize",
+  height: "blockSize",
+  minWidth: "minInlineSize",
+  maxWidth: "maxInlineSize",
+  minHeight: "minBlockSize",
+  maxHeight: "maxBlockSize",
+};
+
+const CSS_IN_JS_VALUES = {
+  "float-left": "inline-start",
+  "float-right": "inline-end",
+};
+
+const DIRECTIONAL_VALUE_PROPERTIES = new Set(["textAlign", "float", "clear"]);
+
+const physicalProperties = Object.keys(CSS_IN_JS_PROPERTIES);
+
+module.exports = {
+  CSS_IN_JS_PROPERTIES,
+  CSS_IN_JS_VALUES,
+  DIRECTIONAL_VALUE_PROPERTIES,
+  physicalProperties,
+};

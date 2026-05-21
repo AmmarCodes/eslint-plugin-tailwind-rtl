@@ -1,0 +1,35 @@
+{
+  "name": "eslint-plugin-tailwind-rtl",
+  "version": "0.0.1",
+  "description": "ESLint plugin for RTL-safe Tailwind CSS — catches physical direction classes and suggests logical alternatives",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "rtl",
+    "css",
+    "tailwind",
+    "logical-properties",
+    "i18n",
+    "internationalization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
