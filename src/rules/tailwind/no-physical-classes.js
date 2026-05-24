@@ -16,37 +16,37 @@ function getLogicalReplacement(className) {
 function checkNode(node, context) {
   if (typeof node.value !== "string") return;
 
-  const classNames = node.value.split(/\s+/);
-  const violations = [];
+  const sourceCode = context.getSourceCode();
+  const contentStart = node.range[0] + 1;
 
-  for (const className of classNames) {
+  const regex = /\S+/g;
+  let match;
+
+  while ((match = regex.exec(node.value)) !== null) {
+    const className = match[0];
+
     if (PHYSICAL_CLASS_PATTERN.test(className)) {
       const replacement = getLogicalReplacement(className);
       if (replacement) {
-        violations.push({ physical: className, logical: replacement });
+        const classStart = contentStart + match.index;
+        const classEnd = classStart + className.length;
+
+        context.report({
+          loc: {
+            start: sourceCode.getLocFromIndex(classStart),
+            end: sourceCode.getLocFromIndex(classEnd),
+          },
+          messageId: "noPhysicalClasses",
+          data: {
+            message: `Use "${replacement}" instead of "${className}"`,
+          },
+          fix(fixer) {
+            return fixer.replaceTextRange([classStart, classEnd], replacement);
+          },
+        });
       }
     }
   }
-
-  if (violations.length === 0) return;
-
-  const message = violations
-    .map((v) => `Use "${v.logical}" instead of "${v.physical}"`)
-    .join(", ");
-
-  let fixed = node.raw;
-  for (const { physical, logical } of violations) {
-    fixed = fixed.replace(physical, logical);
-  }
-
-  context.report({
-    node,
-    messageId: "noPhysicalClasses",
-    data: { message },
-    fix(fixer) {
-      return fixer.replaceText(node, fixed);
-    },
-  });
 }
 
 module.exports = {

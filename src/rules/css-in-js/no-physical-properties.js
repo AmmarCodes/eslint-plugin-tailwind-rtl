@@ -30,7 +30,7 @@ module.exports = {
         const logicalProperty = CSS_IN_JS_PROPERTIES[propertyName];
 
         context.report({
-          node,
+          node: node.key,
           messageId: "noPhysicalProperties",
           data: {
             physical: propertyName,

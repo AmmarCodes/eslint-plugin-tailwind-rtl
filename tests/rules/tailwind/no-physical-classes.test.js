@@ -34,7 +34,11 @@ describe("tailwind/no-physical-classes", () => {
         {
           code: '<div className="pl-3 pr-1 text-left" />',
           output: '<div className="ps-3 pe-1 text-start" />',
-          errors: [{ messageId: "noPhysicalClasses" }],
+          errors: [
+            { messageId: "noPhysicalClasses" },
+            { messageId: "noPhysicalClasses" },
+            { messageId: "noPhysicalClasses" },
+          ],
         },
       ],
     });
