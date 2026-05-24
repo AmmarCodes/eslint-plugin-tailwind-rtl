@@ -22,6 +22,9 @@ describe("css-in-js/no-physical-properties", () => {
         {
           code: 'const styles = { color: "red" }',
         },
+        {
+          code: "const values = Object.keys(CSS_IN_JS_PROPERTIES)",
+        },
       ],
       invalid: [
         {
@@ -42,6 +45,16 @@ describe("css-in-js/no-physical-properties", () => {
             { messageId: "noPhysicalProperties" },
             { messageId: "noPhysicalProperties" },
           ],
+        },
+        {
+          code: 'const styles = { borderLeft: "1px solid red" }',
+          output: 'const styles = { borderInlineStart: "1px solid red" }',
+          errors: [{ messageId: "noPhysicalProperties" }],
+        },
+        {
+          code: 'const styles = { left: "0" }',
+          output: 'const styles = { insetInlineStart: "0" }',
+          errors: [{ messageId: "noPhysicalProperties" }],
         },
       ],
     });
