@@ -2,6 +2,12 @@
 
 ESLint plugin for RTL-safe CSS. Catches physical direction properties in Tailwind classes and CSS-in-JS objects, suggesting logical alternatives.
 
+| Before                                 | After                                                 |
+| -------------------------------------- | ----------------------------------------------------- |
+| ![Broken layout](./assets/before.webp) | ![Fixed layout using the plugin](./assets/after.webp) |
+
+![Demo of auto fixing violations](./assets/demo.gif)
+
 ## Install
 
 ```bash
