@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-tailwind-rtl",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "ESLint plugin for RTL-safe Tailwind CSS — catches physical direction classes and suggests logical alternatives",
   "main": "src/index.js",
   "files": [
@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "test": "node --test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepublishOnly": "npm test"
   },
   "keywords": [
     "eslint",
@@ -21,13 +22,30 @@
     "i18n",
     "internationalization"
   ],
-  "author": "",
+  "author": "Ammar Alakkad",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmmarCodes/eslint-plugin-tailwind-rtl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AmmarCodes/eslint-plugin-tailwind-rtl/issues"
+  },
+  "homepage": "https://github.com/AmmarCodes/eslint-plugin-tailwind-rtl#readme",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "peerDependencies": {
     "eslint": ">=8.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.0.0"
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@semantic-release/github": "^12.0.8",
+    "@semantic-release/npm": "^13.1.5",
+    "eslint": "^9.0.0",
+    "semantic-release": "^25.0.3"
   },
   "engines": {
     "node": ">=18.0.0"
