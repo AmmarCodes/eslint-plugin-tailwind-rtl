@@ -16,7 +16,7 @@ function getLogicalReplacement(className) {
 function checkNode(node, context) {
   if (typeof node.value !== "string") return;
 
-  const sourceCode = context.getSourceCode();
+  const sourceCode = context.sourceCode;
   const contentStart = node.range[0] + 1;
 
   const regex = /\S+/g;
