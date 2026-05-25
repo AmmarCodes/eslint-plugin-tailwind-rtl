@@ -21,16 +21,38 @@ npm install --save-dev eslint eslint-plugin-tailwind-rtl
 
 ## Usage
 
-### Flat config (ESLint v9+)
+### Quick start (recommended config)
+
+The recommended config registers the plugin and enables all rules at `"warn"` severity.
 
 ```js
+// eslint.config.js
 import tailwindRtl from "eslint-plugin-tailwind-rtl";
 
 export default [
+  // ... other configs ...
+  tailwindRtl.configs.recommended,
+];
+```
+
+This enables both `tailwind/no-physical-classes` and `css-in-js/no-physical-properties` as warnings.
+
+#### Tailwind-only projects
+
+If you don't use CSS-in-JS:
+
+```js
+export default [tailwindRtl.configs["recommended-tailwind"]];
+```
+
+#### Strict mode (warn → error)
+
+To fail the build instead of warning:
+
+```js
+export default [
+  tailwindRtl.configs.recommended,
   {
-    plugins: {
-      "tailwind-rtl": tailwindRtl,
-    },
     rules: {
       "tailwind-rtl/tailwind/no-physical-classes": "error",
     },
@@ -38,22 +60,35 @@ export default [
 ];
 ```
 
-### eslintrc (legacy)
+### Advanced: manual registration
+
+If you need finer control over which rules to enable or their severity, register the plugin manually.
+
+**Flat config (ESLint v9+)**
+
+```js
+import tailwindRtl from "eslint-plugin-tailwind-rtl";
+
+export default [
+  {
+    plugins: { "tailwind-rtl": tailwindRtl },
+    rules: {
+      "tailwind-rtl/tailwind/no-physical-classes": "warn",
+      "tailwind-rtl/css-in-js/no-physical-properties": "off",
+    },
+  },
+];
+```
+
+**eslintrc (legacy)**
 
 ```json
 {
   "plugins": ["tailwind-rtl"],
   "rules": {
-    "tailwind-rtl/tailwind/no-physical-classes": "error"
+    "tailwind-rtl/tailwind/no-physical-classes": "warn"
   }
 }
-```
-
-### Recommended config
-
-```js
-import tailwindRtl from "eslint-plugin-tailwind-rtl";
-export default [tailwindRtl.configs.recommended];
 ```
 
 ## Rules
@@ -111,25 +146,8 @@ const styles = { marginInlineStart: "1rem", paddingInlineEnd: "2rem" };
 
 ## Configs
 
-- **`recommended`** — Enables both `tailwind/no-physical-classes` and `css-in-js/no-physical-properties` as warnings.
-- **`recommended-tailwind`** — Enables only `tailwind/no-physical-classes` as a warning. Use this for projects that don't use CSS-in-JS.
-
-### Strict Mode
-
-To make the rule fail your build (error) instead of just warning:
-
-```js
-import tailwindRtl from "eslint-plugin-tailwind-rtl";
-
-export default [
-  tailwindRtl.configs.recommended,
-  {
-    rules: {
-      "tailwind-rtl/tailwind/no-physical-classes": "error",
-    },
-  },
-];
-```
+- **`recommended`** — Plugins + both rules at `"warn"`.
+- **`recommended-tailwind`** — Plugins + tailwind rule only at `"warn"`.
 
 ## Use Cases
 
