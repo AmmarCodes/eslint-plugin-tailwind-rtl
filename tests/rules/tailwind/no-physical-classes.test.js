@@ -1,5 +1,4 @@
 /* eslint-disable tailwind-rtl/tailwind/no-physical-classes */
-const assert = require("node:assert");
 const { describe, it } = require("node:test");
 const { RuleTester } = require("eslint");
 const rule = require("../../../src/rules/tailwind/no-physical-classes");

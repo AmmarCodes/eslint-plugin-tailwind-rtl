@@ -1,3 +1,5 @@
+/* eslint-disable tailwind-rtl/tailwind/no-physical-classes */
+/* eslint-disable tailwind-rtl/css-in-js/no-physical-properties */
 const { DIRECTIONAL_VALUE_PROPERTIES } = require("../../maps/css-in-js");
 
 const TEXT_ALIGN_VALUES = {
@@ -44,7 +46,6 @@ module.exports = {
         const valueMap =
           propName === "textAlign" ? TEXT_ALIGN_VALUES : FLOAT_CLEAR_VALUES;
         const logicalValue = valueMap[propValue];
-        const sourceCode = context.sourceCode;
 
         context.report({
           node: node.value,
@@ -55,7 +56,6 @@ module.exports = {
             property: propName,
           },
           fix(fixer) {
-            const quote = sourceCode.text[node.value.range[0]];
             return fixer.replaceTextRange(
               [node.value.range[0] + 1, node.value.range[1] - 1],
               logicalValue,
