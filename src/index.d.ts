@@ -22,6 +22,7 @@ interface TailwindRtlPlugin {
   rules: {
     "tailwind/no-physical-classes": Rule.RuleModule;
     "css-in-js/no-physical-properties": Rule.RuleModule;
+    "css-in-js/no-physical-values": Rule.RuleModule;
   };
   configs: {
     recommended: Linter.FlatConfig;
