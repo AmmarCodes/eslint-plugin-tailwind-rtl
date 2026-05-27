@@ -1,4 +1,4 @@
-# eslint-plugin-tailwind-rtl
+# ESlint Tailwind RTL plugin
 
 ESLint plugin for RTL-safe CSS. Catches physical direction properties in Tailwind classes and CSS-in-JS objects, suggesting logical alternatives.
 
@@ -10,14 +10,11 @@ ESLint plugin for RTL-safe CSS. Catches physical direction properties in Tailwin
 
 ## Install
 
+> You can install [the SKILL](#ai-agent-skill) as well for your AI coding agent.
+
 ```bash
 npm install --save-dev eslint eslint-plugin-tailwind-rtl
 ```
-
-## Requirements
-
-- **Node.js** >= 18.0.0
-- **ESLint** >= 8.0.0
 
 ## Usage
 
@@ -60,36 +57,12 @@ export default [
 ];
 ```
 
-### Advanced: manual registration
+## Use Cases
 
-If you need finer control over which rules to enable or their severity, register the plugin manually.
-
-**Flat config (ESLint v9+)**
-
-```js
-import tailwindRtl from "eslint-plugin-tailwind-rtl";
-
-export default [
-  {
-    plugins: { "tailwind-rtl": tailwindRtl },
-    rules: {
-      "tailwind-rtl/tailwind/no-physical-classes": "warn",
-      "tailwind-rtl/css-in-js/no-physical-properties": "off",
-    },
-  },
-];
-```
-
-**eslintrc (legacy)**
-
-```json
-{
-  "plugins": ["tailwind-rtl"],
-  "rules": {
-    "tailwind-rtl/tailwind/no-physical-classes": "warn"
-  }
-}
-```
+- **Design systems / shared component libraries** -- Build once, consume in both RTL and LTR projects without direction bugs. The plugin catches physical properties at the component source, so downstream consumers don't have to patch broken margins and padding.
+- **OSS UI components** -- Ship components that work out of the box for Arabic, Hebrew, Persian, and Urdu users. Avoid the "works in my project" problem when your users have different `dir` setups.
+- **Multi-language apps** -- When your app supports both RTL and LTR locales, the plugin prevents direction-specific classes from leaking into shared components.
+- **Code review automation** -- Catch RTL regressions before they hit production. ESLint runs in CI and editor extensions, so violations surface immediately.
 
 ## Rules
 
@@ -144,17 +117,66 @@ const styles = { marginInlineStart: "1rem", paddingInlineEnd: "2rem" };
 | Size         | `width`, `height`                                | `inlineSize`, `blockSize`                                        |
 | Min/max size | `minWidth`, `maxWidth`, `minHeight`, `maxHeight` | `minInlineSize`, `maxInlineSize`, `minBlockSize`, `maxBlockSize` |
 
+### `css-in-js/no-physical-values`
+
+Disallows physical direction values (`"left"`, `"right"`) in CSS-in-JS properties that accept directional keywords.
+Severity: **Warning** by default. Auto-fixable.
+
+```js
+// ❌ Incorrect
+const styles = { textAlign: "left", float: "right", clear: "left" };
+
+// ✅ Correct
+const styles = {
+  textAlign: "start",
+  float: "inline-end",
+  clear: "inline-start",
+};
+```
+
+**Supported properties and values:**
+
+| Property    | Physical Value | Logical Value    |
+| ----------- | -------------- | ---------------- |
+| `textAlign` | `"left"`       | `"start"`        |
+| `textAlign` | `"right"`      | `"end"`          |
+| `float`     | `"left"`       | `"inline-start"` |
+| `float`     | `"right"`      | `"inline-end"`   |
+| `clear`     | `"left"`       | `"inline-start"` |
+| `clear`     | `"right"`      | `"inline-end"`   |
+
 ## Configs
 
-- **`recommended`** — Plugins + both rules at `"warn"`.
-- **`recommended-tailwind`** — Plugins + tailwind rule only at `"warn"`.
+| Config                 | Rules enabled                                      |
+| ---------------------- | -------------------------------------------------- |
+| `recommended`          | Tailwind + CSS-in-JS properties + CSS-in-JS values |
+| `recommended-tailwind` | Tailwind only                                      |
 
-## Use Cases
+## AI Agent Skill
 
-- **Design systems / shared component libraries** — Build once, consume in both RTL and LTR projects without direction bugs. The plugin catches physical properties at the component source, so downstream consumers don't have to patch broken margins and padding.
-- **OSS UI components** — Ship components that work out of the box for Arabic, Hebrew, Persian, and Urdu users. Avoid the "works in my project" problem when your users have different `dir` setups.
-- **Multi-language apps** — When your app supports both RTL and LTR locales, the plugin prevents direction-specific classes from leaking into shared components.
-- **Code review automation** — Catch RTL regressions before they hit production. ESLint runs in CI and editor extensions, so violations surface immediately.
+### Linting Skill (this package)
+
+This package includes a [SKILL.md](https://skills.sh) that teaches AI coding assistants the same property mappings the ESLint plugin enforces. Install it alongside the plugin so agents generate RTL-safe code from the start:
+
+```bash
+npx skills add AmmarCodes/eslint-plugin-tailwind-rtl
+```
+
+### RTL Web Development Skill (companion)
+
+For the full RTL development picture -- Arabic typography, bidirectional text handling, component patterns, `dir` attribute, flexbox auto-flip, icon handling, and more -- install the [companion skill](https://github.com/AmmarCodes/rtl-web-development-skill):
+
+```bash
+npx skills add AmmarCodes/rtl-web-development
+```
+
+### Defense in Depth
+
+| Tool                                                                                           | When it helps    | What it does                                                        |
+| ---------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------- |
+| **Linting Skill** (this package)                                                               | Code generation  | Prevents RTL bugs before they're written                            |
+| **RTL Web Development Skill** ([companion](https://github.com/AmmarCodes/rtl-web-development)) | Code generation  | Full RTL guidance: bidi text, Arabic typography, component patterns |
+| **ESLint Plugin** (this package)                                                               | Code review / CI | Catches RTL regressions in existing code                            |
 
 ## Contributing
 
