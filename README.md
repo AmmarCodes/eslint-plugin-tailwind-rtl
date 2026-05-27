@@ -10,7 +10,7 @@ ESLint plugin for RTL-safe CSS. Catches physical direction properties in Tailwin
 
 ## Install
 
-> You can install [the SKILL](#ai-agent-skill) as well for your AI coding agent.
+> You can install [the companion SKILL](#ai-agent-skill) for your AI coding agent.
 
 ```bash
 npm install --save-dev eslint eslint-plugin-tailwind-rtl
@@ -154,29 +154,18 @@ const styles = {
 
 ## AI Agent Skill
 
-### Linting Skill (this package)
-
-This package includes a [SKILL.md](https://skills.sh) that teaches AI coding assistants the same property mappings the ESLint plugin enforces. Install it alongside the plugin so agents generate RTL-safe code from the start:
+For the full RTL development picture -- Arabic typography, bidirectional text handling, component patterns, `dir` attribute, flexbox auto-flip, icon handling, and more -- install the [RTL Web Development skill](https://github.com/AmmarCodes/rtl-web-development-skills) to catch issue before it's written:
 
 ```bash
-npx skills add AmmarCodes/eslint-plugin-tailwind-rtl
-```
-
-### RTL Web Development Skill (companion)
-
-For the full RTL development picture -- Arabic typography, bidirectional text handling, component patterns, `dir` attribute, flexbox auto-flip, icon handling, and more -- install the [companion skill](https://github.com/AmmarCodes/rtl-web-development-skill):
-
-```bash
-npx skills add AmmarCodes/rtl-web-development
+npx skills add AmmarCodes/rtl-web-development-skill
 ```
 
 ### Defense in Depth
 
-| Tool                                                                                           | When it helps    | What it does                                                        |
-| ---------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------- |
-| **Linting Skill** (this package)                                                               | Code generation  | Prevents RTL bugs before they're written                            |
-| **RTL Web Development Skill** ([companion](https://github.com/AmmarCodes/rtl-web-development)) | Code generation  | Full RTL guidance: bidi text, Arabic typography, component patterns |
-| **ESLint Plugin** (this package)                                                               | Code review / CI | Catches RTL regressions in existing code                            |
+| Tool                                                                                                 | When it helps    | What it does                                                        |
+| ---------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------- |
+| **RTL Web Development Skill** ([companion](https://github.com/AmmarCodes/rtl-web-development-skill)) | Code generation  | Full RTL guidance: bidi text, Arabic typography, component patterns |
+| **ESLint Plugin** (this package)                                                                     | Code review / CI | Catches RTL regressions in existing code                            |
 
 ## Contributing
 
